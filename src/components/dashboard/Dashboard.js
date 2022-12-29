@@ -24,7 +24,7 @@ function Dashboard() {
   ];
 
   const [user, setUser] = useState(getUser());
-  const [taskData,setTaskData] = useState(JSON.parse(localStorage.getItem("taskData")))
+//   const [taskData,setTaskData] = useState(JSON.parse(localStorage.getItem("taskData")))
 
   const date = new Date().getDate();
   const month = new Date().getMonth();
@@ -34,18 +34,18 @@ function Dashboard() {
   const curr_date = `${date}th ${c_month}, ${year}`;
 
   const [task, setTask] = useState([]);
-  
+
   const [toggle,setToggle] = useState(false);
 
-  if(toggle){
-    localStorage.setItem('taskData',JSON.stringify([...task]))
-  }
+//   if(toggle){
+//     localStorage.setItem('taskData',JSON.stringify([...task]))
+//   }
 
   const [input,setInput] = useState();
 
-  useEffect(()=>{
-    setTask(taskData);
-  },[])
+//   useEffect(()=>{
+//     setTask(taskData);
+//   },[])
 
   function handelAdd(){
     setTask([...task,input]);
