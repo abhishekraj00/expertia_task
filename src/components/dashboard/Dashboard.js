@@ -37,6 +37,14 @@ function Dashboard() {
   const [input, setInput] = useState();
 
   function handelAdd() {
+    
+    
+    if(task.length >=5){
+        alert(" “Daily limit exceeded”.")
+        return;
+    }
+
+    
     if (input) {
       setTask([...task, input]);
       setInput("");
