@@ -24,7 +24,6 @@ function Dashboard() {
   ];
 
   const [user, setUser] = useState(getUser());
-//   const [taskData,setTaskData] = useState(JSON.parse(localStorage.getItem("taskData")))
 
   const date = new Date().getDate();
   const month = new Date().getMonth();
@@ -35,23 +34,15 @@ function Dashboard() {
 
   const [task, setTask] = useState([]);
 
-  const [toggle,setToggle] = useState(false);
+  const [input, setInput] = useState();
 
-//   if(toggle){
-//     localStorage.setItem('taskData',JSON.stringify([...task]))
-//   }
-
-  const [input,setInput] = useState();
-
-//   useEffect(()=>{
-//     setTask(taskData);
-//   },[])
-
-  function handelAdd(){
-    setTask([...task,input]);
-    setToggle(true);
-    setInput("")
-   
+  function handelAdd() {
+    if (input) {
+      setTask([...task, input]);
+      setInput("");
+    } else {
+      alert("Empty task can not be added");
+    }
   }
 
   return (
@@ -76,7 +67,7 @@ function Dashboard() {
           <input
             className="input_box"
             placeholder="Eg. Need to finish my assignment . . ."
-            onChange={(e)=>setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value)}
             value={input}
           />
           <button
