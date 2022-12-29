@@ -152,7 +152,6 @@ function Register() {
           >
             Register
           </button>
-          <br/>
 
           <p style={{ alignSelf: "center" }}>
             Already have an Account ?{" "}
