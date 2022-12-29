@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./register.css";
 import img1 from "../../imgaes/img.svg";
-import { json, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({
     username: "",
@@ -12,38 +13,52 @@ function Register() {
     confirmPassword: "",
   });
 
-  const [errorUsername,setErrorUsername ] = useState();
-  const [errorEmail,setErrorEmail ] = useState();
-  const [errorPassword,setErrorPassword ] = useState();
-  const [errorConfirmPassword,setErrorConfirmPassword ] = useState();
+  const [errorUsername, setErrorUsername] = useState();
+  const [errorEmail, setErrorEmail] = useState();
+  const [errorPassword, setErrorPassword] = useState();
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState();
 
-  useEffect(()=>{
-    setErrorUsername('');
-    setErrorEmail('');
-    setErrorPassword('');
-    setErrorConfirmPassword('');
-  },[user])
+  useEffect(() => {
+    setErrorUsername("");
+    setErrorEmail("");
+    setErrorPassword("");
+    setErrorConfirmPassword("");
+  }, [user]);
 
- function registration() {
+  function registration() {
+    if (
+      !user.username ||
+      !user.email ||
+      !user.password ||
+      !user.confirmPassword
+    ) {
+      !user.username && setErrorUsername("⚠️ Username can't be Empty");
+      !user.email && setErrorEmail("⚠️ email can't be Empty");
+      !user.password && setErrorPassword("⚠️ password can't be Empty");
+      !user.confirmPassword &&
+        setErrorConfirmPassword("⚠️ confirmPassword can't be Empty");
 
-    if(!user.username || !user.email || !user.password || !user.confirmPassword){
-        !user.username && setErrorUsername("⚠️ Username can't be Empty");
-        !user.email && setErrorEmail("⚠️ email can't be Empty");
-        !user.password && setErrorPassword("⚠️ password can't be Empty"); 
-        !user.confirmPassword && setErrorConfirmPassword("⚠️ confirmPassword can't be Empty");
+        return;
     }
 
-    if(user.password !== user.confirmPassword ){
-        setErrorConfirmPassword("⚠️ Password is not  matching "); 
+    if (user.password !== user.confirmPassword) {
+      setErrorConfirmPassword("⚠️ Password is not  matching ");
+      return;
     }
 
-    if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email))){
-        setErrorEmail("⚠️ email format is not correct");
+    if (user.password.length <=8 ) {
+        setErrorPassword("⚠️ password length must be 8 character");
+        return;
+      }
+
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email)) {
+      setErrorEmail("⚠️ email format is not correct");
+      return;
     }
 
-    localStorage.setItem("userInfo",JSON.stringify(user));
-    // setUser({});
+    localStorage.setItem("userInfo", JSON.stringify(user));
 
+    navigate("/dashboard");
   }
 
   return (
@@ -81,6 +96,7 @@ function Register() {
           <label>
             Password
             <input
+              type="password"
               className="input_box"
               placeholder="Enter your Password"
               value={user.password}
@@ -93,6 +109,7 @@ function Register() {
           <label>
             Confrim Password
             <input
+              type="password"
               className="input_box"
               placeholder="Confrim your Password"
               value={user.confirmPassword}
@@ -106,16 +123,14 @@ function Register() {
           </label>
           <p className="error">{errorConfirmPassword}</p>
 
-          <div className="flex">
-            <label>
-              <input type={"checkbox"} /> Remember me
-            </label>
-            <span>Forgot Password ?</span>
-          </div>
-
-          <button className="login_btn btn btn-dark" type="button" onClick={()=>registration()}>
+          <button
+            className="login_btn btn btn-dark"
+            type="button"
+            onClick={() => registration()}
+          >
             Register
           </button>
+          <br/>
 
           <p style={{ alignSelf: "center" }}>
             Already have an Account ?{" "}
