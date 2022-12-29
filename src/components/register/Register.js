@@ -4,8 +4,11 @@ import img1 from "../../imgaes/img.svg";
 import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
+
+    //useNavigate hook to send user Dashboard
   const navigate = useNavigate();
 
+  //userData saving
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -13,11 +16,13 @@ function Register() {
     confirmPassword: "",
   });
 
+  //for storing error Messsage
   const [errorUsername, setErrorUsername] = useState();
   const [errorEmail, setErrorEmail] = useState();
   const [errorPassword, setErrorPassword] = useState();
   const [errorConfirmPassword, setErrorConfirmPassword] = useState();
 
+  //for making error empty;
   useEffect(() => {
     setErrorUsername("");
     setErrorEmail("");
@@ -25,7 +30,11 @@ function Register() {
     setErrorConfirmPassword("");
   }, [user]);
 
+
+  // function called on registration button
   function registration() {
+    
+    // validation
     if (
       !user.username ||
       !user.email ||
@@ -51,6 +60,7 @@ function Register() {
         return;
       }
 
+    //ajex for email validation
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email)) {
       setErrorEmail("⚠️ email format is not correct");
       return;
@@ -68,6 +78,8 @@ function Register() {
           <h3 className="welcome">Welcome !</h3>
           <h2 className="sign_in">Sign up to </h2>
           <p className="sing_text">Lorem Ipsum is simply </p>
+
+          {/* {Email Input Box} */}
           <label>
             Email
             <input
@@ -80,7 +92,10 @@ function Register() {
               }
             />
           </label>
+          {/* {Error Message } */}
           <p className="error">{errorEmail}</p>
+
+          {/* {Username Input Box} */}
           <label>
             Username
             <input
@@ -92,7 +107,10 @@ function Register() {
               }
             />
           </label>
+          {/* {Error Message } */}
           <p className="error">{errorUsername}</p>
+
+          {/* {Password Input Box} */}
           <label>
             Password
             <input
@@ -105,7 +123,10 @@ function Register() {
               }
             />
           </label>
+          {/* {Error Message } */}
           <p className="error">{errorPassword}</p>
+
+          {/* {Confrim Password Input Box} */}
           <label>
             Confrim Password
             <input
@@ -121,6 +142,7 @@ function Register() {
               }
             />
           </label>
+          {/* {Error Message } */}
           <p className="error">{errorConfirmPassword}</p>
 
           <button
@@ -134,6 +156,7 @@ function Register() {
 
           <p style={{ alignSelf: "center" }}>
             Already have an Account ?{" "}
+            {/* {use router link to navigate } */}
             <span>
               <Link to="/" className="text_btn_small">
                 Login

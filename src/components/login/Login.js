@@ -15,11 +15,14 @@ function Login() {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
+  //validation for excisting users
   function login(e) {
-    if (username === user.username && password === user.password) {
+    if (!username || !password) {
+      alert("input box cann't be empty");
+    } else if (username === user.username && password === user.password) {
       navigate("/dashboard");
     } else {
-      alert("User Doesn't Exist Register First");
+      alert("User doesn't exist ! ,Register user first");
     }
   }
 
@@ -30,6 +33,7 @@ function Login() {
           <h3 className="welcome">Welcome !</h3>
           <h2 className="login_sign_in">Sign in to </h2>
           <p className="login_sing_text">Lorem Ipsum is simply </p>
+          {/* {User Input Box} */}
           <label>
             Username
             <input
@@ -39,6 +43,7 @@ function Login() {
               onChange={(e) => setUserName(e.target.value)}
             />
           </label>
+          {/* {Password Input Box} */}
           <label>
             Password
             <input
